@@ -83,7 +83,7 @@ async def draw_abyss_card(data, uid, floor_num):
     elif data['retcode'] == 10104:
         return f'uid{uid}有误哦，检查一下吧'
     elif data['retcode'] != 0:
-        return f'派蒙获取{uid}数据失败了，可能是以下原因：\n1.达到每日30次查询上限了\n2.绑定的cookie失效了\n3.没有在米游社公开信息\n{data["message"]},{data["retcode"]}'
+        return f'六郎获取{uid}数据失败了，可能是以下原因：\n1.达到每日30次查询上限了\n2.绑定的cookie失效了\n3.没有在米游社公开信息\n{data["message"]},{data["retcode"]}'
     data = data['data']
     if not data['defeat_rank']:
         return f'uid{uid}没有深渊数据，请打了8-3之后的层数再来!'

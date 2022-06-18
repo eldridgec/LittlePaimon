@@ -18,7 +18,7 @@ __paimon_help__ = {
 help_ = on_command('help', aliases={'帮助菜单'}, priority=1, block=True)
 help_.__paimon_help__ = {
     "usage":     "帮助菜单|help",
-    "introduce": "查看派蒙的帮助信息",
+    "introduce": "查看六郎的帮助信息",
     "priority":  99
 }
 
@@ -83,7 +83,7 @@ def draw_help_info(help_info: dict):
     bg_img = Image.open(str(res_path / 'bg.jpg')).convert('RGBA').resize((1500, total_height))
     img.paste(bg_img, (0, 0), bg_img)
     draw = ImageDraw.Draw(img)
-    draw_shadow_text(draw, (50, 50), '派蒙帮助', get_font(140), (255, 255, 255), (0, 0, 0, 255), (3, 3))
+    draw_shadow_text(draw, (50, 50), '六郎帮助', get_font(140), (255, 255, 255), (0, 0, 0, 255), (3, 3))
     draw_shadow_text(draw, (610, 140), __version__, get_font(50), (255, 255, 255), (0, 0, 0, 255), (3, 3))
     draw_shadow_text(draw, (520, 250), '<>内为必须，[]内为可选，()内只需要第一次', get_font(50), (255, 255, 255), (0, 0, 0, 255), (2, 2))
     draw_shadow_text(draw, (620, 300), '描述前带*号说明需要绑定私人cookie', get_font(50), (255, 255, 255), (0, 0, 0, 255), (2, 2))

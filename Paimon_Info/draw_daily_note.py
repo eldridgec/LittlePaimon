@@ -46,7 +46,7 @@ async def draw_daily_note_card(data, uid):
     elif data['retcode'] == 10104:
         return f'uid{uid}有误哦，检查一下或再手动输入一次uid吧'
     elif data['retcode'] != 0:
-        return f'派蒙获取{uid}数据失败了，获取状态：\n{data["message"]},{data["retcode"]}'
+        return f'六郎获取{uid}数据失败了，获取状态：\n{data["message"]},{data["retcode"]}'
     data = data['data']
     circle_img = load_image(os.path.join(res_path, 'daily_note', '透明圆.png'))
     finished_icon = load_image(os.path.join(res_path, 'daily_note', 'finished.png'))

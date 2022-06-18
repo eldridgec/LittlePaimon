@@ -57,7 +57,7 @@ async def draw_monthinfo_card(data):
     elif data['retcode'] == -110:
         return '这个uid没有绑定cookie哦!'
     elif data['retcode'] != 0:
-        return f'派蒙获取数据失败了，获取状态：\n{data["message"]},{data["retcode"]}'
+        return f'六郎获取数据失败了，获取状态：\n{data["message"]},{data["retcode"]}'
     data = data['data']
     bg_img = load_image(os.path.join(res_path, 'monthinfo', 'bg.png'), mode='RGBA')
     bg_draw = ImageDraw.Draw(bg_img)

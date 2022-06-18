@@ -59,7 +59,7 @@ async def ckjl(bot: Bot, event: Union[MessageEvent, GroupMessageEvent], msg: Mes
         await gacha_log_export.finish('在群聊中才能导出抽卡记录文件哦！')
     uid, msg, user_id, use_cache = await get_uid_in_msg(event, msg)
     if not uid:
-        await gacha_log_export.finish('请把uid给派蒙哦，比如导出抽卡记录100000001 xlsx', at_sender=True)
+        await gacha_log_export.finish('请把uid给六郎哦，比如导出抽卡记录100000001 xlsx', at_sender=True)
     find_filetype = r'(?P<filetype>xlsx|json)'
     match = re.search(find_filetype, msg)
     filetype = match.group('filetype') if match else 'xlsx'
@@ -69,7 +69,7 @@ async def ckjl(bot: Bot, event: Union[MessageEvent, GroupMessageEvent], msg: Mes
         filetype = f'UIGF_gachaData-{uid}.json'
     local_data = os.path.join(data_path, filetype)
     if not os.path.exists(local_data):
-        await gacha_log_export.finish('你在派蒙这里还没有抽卡记录哦，使用 更新抽卡记录 吧！', at_sender=True)
+        await gacha_log_export.finish('你在六郎这里还没有抽卡记录哦，使用 更新抽卡记录 吧！', at_sender=True)
     else:
         await bot.upload_group_file(group_id=event.group_id, file=local_data, name=filetype)
 
@@ -85,7 +85,7 @@ async def update_ckjl(event: MessageEvent, msg: Message = CommandArg()):
             msg = msg.replace(url, '')
     uid, msg, user_id, use_cache = await get_uid_in_msg(event, msg)
     if not uid:
-        await gacha_log_update.finish('请把uid给派蒙哦，比如获取抽卡记录100000001 链接', at_sender=True)
+        await gacha_log_update.finish('请把uid给六郎哦，比如获取抽卡记录100000001 链接', at_sender=True)
     if msg and not url:
         await gacha_log_update.finish('你这个抽卡链接不对哦，应该是以https://开头、#/log结尾的！', at_sender=True)
     if not msg and not url:
@@ -95,7 +95,7 @@ async def update_ckjl(event: MessageEvent, msg: Message = CommandArg()):
                 url = user_data[user_id][uid]
                 await gacha_log_update.send('发现历史抽卡记录链接，尝试使用...')
             else:
-                await gacha_log_update.finish('拿到游戏抽卡记录链接后，对派蒙说[获取抽卡记录 uid 链接]就可以啦\n获取抽卡记录链接的方式和vx小程序的是一样的，还请旅行者自己搜方法',
+                await gacha_log_update.finish('拿到游戏抽卡记录链接后，对六郎说[获取抽卡记录 uid 链接]就可以啦\n获取抽卡记录链接的方式和vx小程序的是一样的，还请旅行者自己搜方法',
                                               at_sender=True)
     with open(os.path.join(data_path, 'user_gacha_log.json'), 'r', encoding="utf-8") as f:
         user_data = json.load(f)
@@ -109,7 +109,7 @@ async def update_ckjl(event: MessageEvent, msg: Message = CommandArg()):
     apiRes = await checkApi(url)
     if apiRes != 'OK':
         await gacha_log_update.finish(apiRes, at_sender=True)
-    await gacha_log_update.send('抽卡记录开始获取，请给派蒙一点时间...')
+    await gacha_log_update.send('抽卡记录开始获取，请给六郎一点时间...')
     await get_data(url)
 
     local_data = os.path.join(data_path, f'gachaData-{uid}.json')
@@ -123,12 +123,12 @@ async def update_ckjl(event: MessageEvent, msg: Message = CommandArg()):
 async def get_ckjl(event: MessageEvent, msg: Message = CommandArg()):
     uid, msg, user_id, use_cache = await get_uid_in_msg(event, msg)
     if not uid:
-        await gacha_log_update.finish('请把uid给派蒙哦，比如获取抽卡记录100000001 链接', at_sender=True)
+        await gacha_log_update.finish('请把uid给六郎哦，比如获取抽卡记录100000001 链接', at_sender=True)
     match = re.search(r'(all|角色|武器|常驻|新手)', msg)
     pool = match.group(1) if match else 'all'
     local_data = os.path.join(data_path, f'gachaData-{uid}.json')
     if not os.path.exists(local_data):
-        await gacha_log_update.finish('你在派蒙这里还没有抽卡记录哦，对派蒙说 获取抽卡记录 吧！', at_sender=True)
+        await gacha_log_update.finish('你在六郎这里还没有抽卡记录哦，对六郎说 获取抽卡记录 吧！', at_sender=True)
     with open(local_data, 'r', encoding="utf-8") as f:
         gacha_data = json.load(f)
     gacha_img = await get_gacha_log_img(gacha_data, pool)

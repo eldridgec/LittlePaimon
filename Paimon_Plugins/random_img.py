@@ -36,7 +36,7 @@ async def cat_img_handler(event: MessageEvent):
     if not cat_lmt.check(get_message_id(event)):
         await cat_img.finish(f'猫片冷却ing(剩余{cat_lmt.left_time(get_message_id(event))}秒)')
     else:
-        await cat_img.send('派蒙努力找图ing..请稍候...')
+        await cat_img.send('六郎努力找图ing..请稍候...')
         cat_lmt.start_cd(get_message_id(event), config.paimon_cat_cd)
         url = 'http://edgecats.net/'
         await cat_img.finish(MessageSegment.image(file=url))
@@ -69,7 +69,7 @@ async def ecy_img_handler(bot: Bot, event: MessageEvent, regexGroup=RegexGroup()
     if not ecy_lmt.check(get_message_id(event)):
         await ecy_img.finish(f'二次元图片冷却ing(剩余{ecy_lmt.left_time(get_message_id(event))}秒)')
     elif url:
-        await ecy_img.send('派蒙努力找图ing..请稍候...')
+        await ecy_img.send('六郎努力找图ing..请稍候...')
         ecy_lmt.start_cd(get_message_id(event), config.paimon_ecy_cd)
         return await ecy_img.send(MessageSegment.image(file=url))
 
@@ -84,6 +84,6 @@ async def ys_img_handler(event: MessageEvent):
     if not ys_lmt.check(get_message_id(event)):
         await ys_img.finish(f'原神壁纸冷却ing(剩余{ys_lmt.left_time(get_message_id(event))}秒)')
     else:
-        await ys_img.send('派蒙努力找图ing..请稍候...')
+        await ys_img.send('六郎努力找图ing..请稍候...')
         ys_lmt.start_cd(get_message_id(event), config.paimon_ysp_cd)
         await ys_img.finish(MessageSegment.image(file=random.choice(urls)))

@@ -37,9 +37,9 @@ async def checkApi(url):
 
     if not j["data"]:
         if j["message"] == "authkey error":
-            return "authkey错误，请重新获取链接给派蒙！"
+            return "authkey错误，请重新获取链接给六郎！"
         elif j["message"] == "authkey timeout":
-            return "authkey已过期，请重新获取链接给派蒙！"
+            return "authkey已过期，请重新获取链接给六郎！"
         else:
             return f'数据为空，错误代码：{j["message"]}'
     return 'OK'

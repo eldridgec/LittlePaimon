@@ -54,30 +54,30 @@ async def get_use_cookie(user_id, uid='', mys_id='', action=''):
     if not cookies:
         if cache_cookie:
             if cache_cookie['type'] == 'public':
-                logger.info(f'---派蒙调用{uid}的缓存公共cookie执行{action}操作---')
+                logger.info(f'---六郎调用{uid}的缓存公共cookie执行{action}操作---')
             else:
-                logger.info(f'---派蒙调用{uid}的缓存私人cookie执行{action}操作---')
+                logger.info(f'---六郎调用{uid}的缓存私人cookie执行{action}操作---')
             return cache_cookie
         public_cookie = await get_public_cookie()
         if not public_cookie:
-            logger.info(f'---派蒙当前没有可用的公共cookie，可能是都达到了上限或没有公共cookie---')
+            logger.info(f'---六郎当前没有可用的公共cookie，可能是都达到了上限或没有公共cookie---')
             return None
         else:
-            logger.info(f'---派蒙调用{public_cookie[0]}号公共cookie执行{action}操作---')
+            logger.info(f'---六郎调用{public_cookie[0]}号公共cookie执行{action}操作---')
             return {'type': 'public', 'cookie': public_cookie[1], 'no': public_cookie[0]}
     else:
         for user_id_, cookie, uid_, mys_id_ in cookies:
             if (uid and uid_ == uid) or (mys_id and mys_id_ == mys_id):
-                logger.info(f'---派蒙调用用户{user_id_}的uid{uid_}私人cookie执行{action}操作---')
+                logger.info(f'---六郎调用用户{user_id_}的uid{uid_}私人cookie执行{action}操作---')
                 return {'type': 'private', 'user_id': user_id_, 'cookie': cookie, 'uid': uid_, 'mys_id': mys_id_}
         if cache_cookie:
             if cache_cookie['type'] == 'public':
-                logger.info(f'---派蒙调用{uid}的缓存公共cookie执行{action}操作---')
+                logger.info(f'---六郎调用{uid}的缓存公共cookie执行{action}操作---')
             else:
-                logger.info(f'---派蒙调用{uid}的缓存私人cookie执行{action}操作---')
+                logger.info(f'---六郎调用{uid}的缓存私人cookie执行{action}操作---')
             return cache_cookie
         use_cookie = random.choice(cookies)
-        logger.info(f'---派蒙调用用户{use_cookie[0]}的uid{use_cookie[2]}私人cookie执行{action}操作---')
+        logger.info(f'---六郎调用用户{use_cookie[0]}的uid{use_cookie[2]}私人cookie执行{action}操作---')
         return {'type':   'private', 'user_id': use_cookie[0], 'cookie': use_cookie[1], 'uid': use_cookie[2],
                 'mys_id': use_cookie[3]}
 
@@ -94,7 +94,7 @@ async def get_own_cookie(uid='', mys_id='', action=''):
         return None
     else:
         cookie = cookie[0]
-        logger.info(f'---派蒙调用用户{cookie[0]}的uid{cookie[2]}私人cookie执行{action}操作---')
+        logger.info(f'---六郎调用用户{cookie[0]}的uid{cookie[2]}私人cookie执行{action}操作---')
         return {'type': 'private', 'user_id': cookie[0], 'cookie': cookie[1], 'uid': cookie[2], 'mys_id': cookie[3]}
 
 

@@ -13,7 +13,7 @@ from utils.message_util import MessageBuild
 from utils.file_handler import load_json_from_url
 
 __paimon_help__ = {
-    'type': '派蒙机器学习',
+    'type': '六郎机器学习',
     'range': ['private', 'group', 'guild']
 }
 
@@ -21,16 +21,16 @@ if config.paimon_mongodb_url:
     try:
         from .Learning_repeate import main
     except ImportError:
-        logger.info('派蒙机器学习聊天启用失败，可能是mongodb连接失败或缺少相关库')
+        logger.info('六郎机器学习聊天启用失败，可能是mongodb连接失败或缺少相关库')
 else:
-    logger.info('派蒙机器学习聊天启用失败，mongodb尚未配置')
+    logger.info('六郎机器学习聊天启用失败，mongodb尚未配置')
 
 driver = get_driver()
 
 voice_url = 'https://static.cherishmoon.fun/LittlePaimon/voice/'
 chat_lmt = FreqLimiter2(60)
 
-update_voice = on_command('更新派蒙语音', priority=2)
+update_voice = on_command('更新六郎语音', priority=2)
 
 # TODO 被动效果
 
@@ -50,11 +50,11 @@ async def update_paimon_voice(event: MessageEvent):
         for key, value in voice_list.items():
             create_matcher(key, value['pattern'], value['cooldown'], value['pro'], value['files'])
         new_len = len(voice_list) - old_len
-        await update_voice.send(f'派蒙语音更新成功，本次获取到{len(voice_list)}种语音， 新增{new_len}种语音')
+        await update_voice.send(f'六郎语音更新成功，本次获取到{len(voice_list)}种语音， 新增{new_len}种语音')
     except FinishedException:
         raise
     except Exception as e:
-        await update_voice.send(f'派蒙语音更新失败：{e}')
+        await update_voice.send(f'六郎语音更新失败：{e}')
 
 
 def create_matcher(chat_word: str, pattern: str, cooldown: int, pro: float, responses):
@@ -80,7 +80,7 @@ def create_matcher(chat_word: str, pattern: str, cooldown: int, pro: float, resp
         except FinishedException:
             raise
         except Exception as e:
-            logger.error('派蒙发送语音失败', e)
+            logger.error('六郎发送语音失败', e)
 
 
 @driver.on_startup

@@ -155,11 +155,11 @@ def create_choice_command(endswith: str, type_: str, url: str, tips: str = None,
         if choice not in match_alias:
             state['times'] = state['times'] + 1 if 'times' in state else 1
             if state['times'] == 1:
-                await command.reject(f'请旅行者从上面的{endswith[0:2]}中选一个问派蒙\n回答\"q\"可以取消查询', at_sender=True)
+                await command.reject(f'请旅行者从上面的{endswith[0:2]}中选一个问六郎\n回答\"q\"可以取消查询', at_sender=True)
             elif state['times'] == 2:
-                await command.reject(f'别调戏派蒙啦，快选一个吧，不想问了请回答\"q\"！', at_sender=True)
+                await command.reject(f'别调戏六郎啦，快选一个吧，不想问了请回答\"q\"！', at_sender=True)
             elif state['times'] >= 3:
-                await command.finish(f'看来旅行者您有点神志不清哦(，下次再问派蒙吧' + MessageSegment.face(146), at_sender=True)
+                await command.finish(f'看来旅行者您有点神志不清哦(，下次再问六郎吧' + MessageSegment.face(146), at_sender=True)
         await command.finish(await MessageBuild.StaticImage(url=url.format(choice), tips=tips.format(choice)))
 
 

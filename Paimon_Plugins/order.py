@@ -13,7 +13,7 @@ __paimon_help__ = {
 order_pic = on_command('点菜', aliases={'点餐', '食谱', '我想吃'}, priority=13, block=True)
 order_pic.__paimon_help__ = {
     "usage":     "点餐<食品名>",
-    "introduce": "群主，来一份派蒙！",
+    "introduce": "群主，来一份六郎！",
     "priority": 11
 }
 

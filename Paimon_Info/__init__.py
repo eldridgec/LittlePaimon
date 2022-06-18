@@ -108,14 +108,14 @@ ysb.__paimon_help__ = {
     "introduce": "绑定私人cookie以开启更多功能",
     "priority":  99
 }
-mys_sign = on_command('mys_sign', aliases={'mys签到', '米游社签到'}, priority=7, block=True)
-mys_sign_auto = on_command('mys_sign_auto', aliases={'mys自动签到', '米游社自动签到'}, priority=7, block=True)
-mys_sign_auto.__paimon_help__ = {
-    "usage":     "mys自动签到<on|off uid>",
-    "introduce": "*米游社原神区自动签到奖励获取",
-    "priority":  9
-}
-mys_sign_all = on_command('mys_sign_all', aliases={'全部重签'}, priority=1, permission=SUPERUSER, rule=to_me(), block=True)
+# mys_sign = on_command('mys_sign', aliases={'mys签到', '米游社签到'}, priority=7, block=True)
+# mys_sign_auto = on_command('mys_sign_auto', aliases={'mys自动签到', '米游社自动签到'}, priority=7, block=True)
+# mys_sign_auto.__paimon_help__ = {
+#     "usage":     "mys自动签到<on|off uid>",
+#     "introduce": "*米游社原神区自动签到奖励获取",
+#     "priority":  9
+# }
+# mys_sign_all = on_command('mys_sign_all', aliases={'全部重签'}, priority=1, permission=SUPERUSER, rule=to_me(), block=True)
 update_all = on_command('update_all', aliases={'更新全部玩家'}, priority=1, permission=SUPERUSER, rule=to_me(), block=True)
 add_public_ck = on_command('add_ck', aliases={'添加公共cookie', '添加公共ck'}, permission=SUPERUSER, priority=7, block=True)
 delete_ck = on_command('delete_ck', aliases={'删除ck', '删除cookie'}, priority=7, block=True)
@@ -431,55 +431,55 @@ async def delete_ck_handler(event: MessageEvent):
     await delete_ck.finish('派蒙把你的私人cookie都删除啦!', at_sender=True)
 
 
-@mys_sign.handle()
-@exception_handler()
-async def mys_sign_handler(event: MessageEvent, msg: Message = CommandArg()):
-    uid, msg, user_id, use_cache = await get_uid_in_msg(event, msg)
-    sign_list = await get_sign_list()
-    sign_info = await get_sign_info(uid)
-    if isinstance(sign_info, str):
-        await mys_sign.finish(sign_info, at_sender=True)
-    elif sign_info['data']['is_sign']:
-        sign_day = sign_info['data']['total_sign_day'] - 1
-        await mys_sign.finish(
-            f'你今天已经签过到了哦,获得的奖励为:\n{sign_list["data"]["awards"][sign_day]["name"]} * {sign_list["data"]["awards"][sign_day]["cnt"]}',
-            at_sender=True)
-    else:
-        sign_day = sign_info['data']['total_sign_day']
-        sign_action = await sign(uid)
-        if isinstance(sign_action, str):
-            await mys_sign.finish(sign_action, at_sender=True)
-        else:
-            await mys_sign.finish(
-                f'签到成功,获得的奖励为:\n{sign_list["data"]["awards"][sign_day]["name"]} * {sign_list["data"]["awards"][sign_day]["cnt"]}',
-                at_sender=True)
+# @mys_sign.handle()
+# @exception_handler()
+# async def mys_sign_handler(event: MessageEvent, msg: Message = CommandArg()):
+#     uid, msg, user_id, use_cache = await get_uid_in_msg(event, msg)
+#     sign_list = await get_sign_list()
+#     sign_info = await get_sign_info(uid)
+#     if isinstance(sign_info, str):
+#         await mys_sign.finish(sign_info, at_sender=True)
+#     elif sign_info['data']['is_sign']:
+#         sign_day = sign_info['data']['total_sign_day'] - 1
+#         await mys_sign.finish(
+#             f'你今天已经签过到了哦,获得的奖励为:\n{sign_list["data"]["awards"][sign_day]["name"]} * {sign_list["data"]["awards"][sign_day]["cnt"]}',
+#             at_sender=True)
+#     else:
+#         sign_day = sign_info['data']['total_sign_day']
+#         sign_action = await sign(uid)
+#         if isinstance(sign_action, str):
+#             await mys_sign.finish(sign_action, at_sender=True)
+#         else:
+#             await mys_sign.finish(
+#                 f'签到成功,获得的奖励为:\n{sign_list["data"]["awards"][sign_day]["name"]} * {sign_list["data"]["awards"][sign_day]["cnt"]}',
+#                 at_sender=True)
+#
 
-
-@mys_sign_auto.handle()
-@exception_handler()
-async def mys_sign_auto_handler(event: MessageEvent, msg: Message = CommandArg()):
-    if event.message_type != 'group':
-        await mys_sign_auto.finish('自动签到功能暂时只限Q群内使用哦')
-    msg = str(msg).strip()
-    find_uid = re.search(r'(?P<uid>(1|2|5)\d{8})', msg)
-    if not find_uid:
-        await mys_sign_auto.finish('请把正确的需要帮忙签到的uid给派蒙哦!', at_sender=True)
-    else:
-        uid = find_uid.group('uid')
-        find_action = re.search(r'(?P<action>开启|启用|打开|关闭|禁用|on|off)', msg)
-        if find_action:
-            if find_action.group('action') in ['开启', '启用', '打开', 'on']:
-                cookie = await get_private_cookie(uid, key='uid')
-                if not cookie:
-                    await mys_sign_auto.finish('你的该uid还没绑定cookie哦，先用ysb绑定吧!', at_sender=True)
-                await add_auto_sign(str(event.user_id), uid, str(event.group_id))
-                await mys_sign_auto.finish('开启米游社自动签到成功,派蒙会在每日0点帮你签到', at_sender=True)
-            elif find_action.group('action') in ['关闭', '禁用', 'off']:
-                await delete_auto_sign(str(event.user_id), uid)
-                await mys_sign_auto.finish('关闭米游社自动签到成功', at_sender=True)
-        else:
-            await add_auto_sign(str(event.user_id), uid, str(event.group_id))
-            await mys_sign_auto.finish('开启米游社自动签到成功,派蒙会在每日0点帮你签到', at_sender=True)
+# @mys_sign_auto.handle()
+# @exception_handler()
+# async def mys_sign_auto_handler(event: MessageEvent, msg: Message = CommandArg()):
+#     if event.message_type != 'group':
+#         await mys_sign_auto.finish('自动签到功能暂时只限Q群内使用哦')
+#     msg = str(msg).strip()
+#     find_uid = re.search(r'(?P<uid>(1|2|5)\d{8})', msg)
+#     if not find_uid:
+#         await mys_sign_auto.finish('请把正确的需要帮忙签到的uid给派蒙哦!', at_sender=True)
+#     else:
+#         uid = find_uid.group('uid')
+#         find_action = re.search(r'(?P<action>开启|启用|打开|关闭|禁用|on|off)', msg)
+#         if find_action:
+#             if find_action.group('action') in ['开启', '启用', '打开', 'on']:
+#                 cookie = await get_private_cookie(uid, key='uid')
+#                 if not cookie:
+#                     await mys_sign_auto.finish('你的该uid还没绑定cookie哦，先用ysb绑定吧!', at_sender=True)
+#                 await add_auto_sign(str(event.user_id), uid, str(event.group_id))
+#                 await mys_sign_auto.finish('开启米游社自动签到成功,派蒙会在每日0点帮你签到', at_sender=True)
+#             elif find_action.group('action') in ['关闭', '禁用', 'off']:
+#                 await delete_auto_sign(str(event.user_id), uid)
+#                 await mys_sign_auto.finish('关闭米游社自动签到成功', at_sender=True)
+#         else:
+#             await add_auto_sign(str(event.user_id), uid, str(event.group_id))
+#             await mys_sign_auto.finish('开启米游社自动签到成功,派蒙会在每日0点帮你签到', at_sender=True)
 
 
 ud_lmt = FreqLimiter(300)
@@ -579,9 +579,9 @@ async def _(event: MessageEvent, state: T_State):
         await role_info.finish(img)
 
 
-@mys_sign_all.handle()
-async def sign_all():
-    await auto_sign()
+# @mys_sign_all.handle()
+# async def sign_all():
+#     await auto_sign()
 
 
 @update_all.handle()

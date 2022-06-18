@@ -43,15 +43,15 @@ async def addGroup(bot: Bot, event: GroupRequestEvent):
         await bot.send_private_msg(user_id=superuser, message=superuser_msg)
 
 
-greet_emoticon = MessageBuild.Image(Path(__file__).parent.parent / 'res' / 'emoticons' / '六郎-干杯.png', mode='RGBA')
-honor_emoticon = MessageBuild.Image(Path(__file__).parent.parent / 'res' / 'emoticons' / '六郎-哼哼.png', mode='RGBA')
-honor2_emoticon = MessageBuild.Image(Path(__file__).parent.parent / 'res' / 'emoticons' / '六郎-黑线.png', mode='RGBA')
+greet_emoticon = MessageBuild.Image(Path(__file__).parent.parent / 'res' / 'emoticons' / '派蒙-干杯.png', mode='RGBA')
+honor_emoticon = MessageBuild.Image(Path(__file__).parent.parent / 'res' / 'emoticons' / '派蒙-哼哼.png', mode='RGBA')
+honor2_emoticon = MessageBuild.Image(Path(__file__).parent.parent / 'res' / 'emoticons' / '派蒙-黑线.png', mode='RGBA')
 
 
 @notice_handle.handle()
 async def FriendNew(bot: Bot, event: FriendAddNoticeEvent):
     await sleep(random.randint(4, 8))
-    await bot.send_private_msg(user_id=event.user_id, message=Message(MessageSegment.text('旅行者你好呀~，这里是小六郎，对我说help查看帮助吧~\n') + greet_emoticon))
+    await bot.send_private_msg(user_id=event.user_id, message=Message(MessageSegment.text('旅行者你好呀~，这里是小六郎，对我说 gs帮助 和 help 查看帮助吧~\n') + greet_emoticon))
 
 
 @notice_handle.handle()
